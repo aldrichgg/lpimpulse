@@ -16,91 +16,48 @@ import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { generateBonusAction } from "@/app/actions";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "../ui/badge";
 
-const packages = {
-    monthly: [
-      {
-        name: "Iniciante Mensal",
-        followers: "1,000",
-        price: "29,90",
-        description: "Comece a construir sua presença de forma consistente.",
-        features: ["Seguidores Brasileiros", "Entrega Gradual", "Suporte 24/7"],
-        isAIPowered: false,
-        icon: Rocket,
-        highlight: null,
-      },
-      {
-        name: "Influencer Mensal",
-        followers: "5,000",
-        price: "99,90",
-        description: "Crescimento constante para quem leva a sério.",
-        features: [
-          "Tudo do plano Iniciante",
-          "Entrega Prioritária",
-          "Análise de Perfil Grátis",
-        ],
-        isAIPowered: true,
-        icon: Gem,
-        highlight: "Mais Popular",
-      },
-      {
-        name: "Celebridade Mensal",
-        followers: "15,000",
-        price: "249,90",
-        description: "Domine seu nicho com crescimento acelerado.",
-        features: [
-          "Tudo do plano Influencer",
-          "Consultoria Estratégica",
-          "Menções em Perfis Parceiros",
-        ],
-        isAIPowered: false,
-        icon: Crown,
-        highlight: null,
-      },
+const packages = [
+  {
+    name: "Iniciante",
+    followers: "5,000",
+    price: "49,90",
+    description: "Ideal para dar o primeiro passo e começar a crescer.",
+    features: ["Seguidores Brasileiros", "Entrega Rápida", "Suporte 24/7"],
+    isAIPowered: false,
+    icon: Rocket,
+    highlight: null,
+  },
+  {
+    name: "Influencer",
+    followers: "20,000",
+    price: "149,90",
+    description: "Acelere seu crescimento e alcance o status de influencer.",
+    features: [
+      "Tudo do plano Iniciante",
+      "Entrega Prioritária",
+      "Análise de Perfil Grátis",
     ],
-    once: [
-      {
-        name: "Iniciante",
-        followers: "5,000",
-        price: "49,90",
-        description: "Ideal para dar o primeiro passo e começar a crescer.",
-        features: ["Seguidores Brasileiros", "Entrega Rápida", "Suporte 24/7"],
-        isAIPowered: false,
-        icon: Rocket,
-        highlight: null,
-      },
-      {
-        name: "Influencer",
-        followers: "20,000",
-        price: "149,90",
-        description: "Acelere seu crescimento e alcance o status de influencer.",
-        features: [
-          "Tudo do plano Iniciante",
-          "Entrega Prioritária",
-          "Análise de Perfil Grátis",
-        ],
-        isAIPowered: true,
-        icon: Gem,
-        highlight: "Mais Vendido",
-      },
-      {
-        name: "Celebridade",
-        followers: "50,000",
-        price: "299,90",
-        description: "Para quem busca o estrelato e máxima autoridade.",
-        features: [
-          "Tudo do plano Influencer",
-          "Consultoria Estratégica",
-          "Menções em Perfis Parceiros",
-        ],
-        isAIPowered: false,
-        icon: Crown,
-        highlight: null,
-      },
-    ]
-  };
+    isAIPowered: true,
+    icon: Gem,
+    highlight: "Mais Vendido",
+  },
+  {
+    name: "Celebridade",
+    followers: "50,000",
+    price: "299,90",
+    description: "Para quem busca o estrelato e máxima autoridade.",
+    features: [
+      "Tudo do plano Influencer",
+      "Consultoria Estratégica",
+      "Menções em Perfis Parceiros",
+    ],
+    isAIPowered: false,
+    icon: Crown,
+    highlight: null,
+  },
+];
 
 function BonusGenerator({ packageDescription }: { packageDescription: string }) {
   const { toast } = useToast();
@@ -170,7 +127,7 @@ function BonusGenerator({ packageDescription }: { packageDescription: string }) 
   );
 }
 
-function PackageCard({ pkg }: { pkg: typeof packages.once[0] }) {
+function PackageCard({ pkg }: { pkg: typeof packages[0] }) {
     const Icon = pkg.icon;
     return (
         <Card
@@ -194,7 +151,7 @@ function PackageCard({ pkg }: { pkg: typeof packages.once[0] }) {
                 </div>
             </div>
           <CardTitle className="font-headline text-2xl text-center">{pkg.name}</CardTitle>
-          <CardDescription className="text-center">{pkg.description}</CardDescription>
+          <CardDescription className="text-center min-h-[40px]">{pkg.description}</CardDescription>
         </CardHeader>
         <CardContent className="flex-grow">
           <div className="text-center my-4">
@@ -245,31 +202,14 @@ export default function PackagesSection() {
               Planos Flexíveis Para o Seu Sucesso
             </h2>
             <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Escolha entre compras únicas para um impulso rápido ou assinaturas mensais para um crescimento contínuo e sustentável.
+              Escolha o pacote ideal para um impulso rápido no seu perfil. Crescimento contínuo e sustentável.
             </p>
           </div>
         </div>
-        <div className="flex justify-center mt-8">
-            <Tabs defaultValue="once" className="w-full max-w-md">
-                <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="once">Compra Única</TabsTrigger>
-                    <TabsTrigger value="monthly">Assinatura Mensal</TabsTrigger>
-                </TabsList>
-                <TabsContent value="once">
-                    <div className="mx-auto grid max-w-sm items-start gap-8 sm:max-w-4xl sm:grid-cols-2 md:gap-12 lg:max-w-5xl lg:grid-cols-3 mt-12">
-                        {packages.once.map((pkg) => (
-                           <PackageCard key={pkg.name} pkg={pkg} />
-                        ))}
-                    </div>
-                </TabsContent>
-                <TabsContent value="monthly">
-                    <div className="mx-auto grid max-w-sm items-start gap-8 sm:max-w-4xl sm:grid-cols-2 md:gap-12 lg:max-w-5xl lg:grid-cols-3 mt-12">
-                        {packages.monthly.map((pkg) => (
-                            <PackageCard key={pkg.name} pkg={pkg} />
-                        ))}
-                    </div>
-                </TabsContent>
-            </Tabs>
+        <div className="mx-auto grid max-w-sm items-start gap-8 sm:max-w-4xl sm:grid-cols-2 md:gap-12 lg:max-w-5xl lg:grid-cols-3 mt-12">
+            {packages.map((pkg) => (
+               <PackageCard key={pkg.name} pkg={pkg} />
+            ))}
         </div>
       </div>
     </section>
