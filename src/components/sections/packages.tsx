@@ -2,6 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -150,6 +151,7 @@ function CountdownTimer({ initialHours = 2, initialMinutes = 11, initialSeconds 
 }
 
 function PackageCard({ pkg, countdownProps }: { pkg: typeof packages[0], countdownProps?: { initialHours?: number, initialMinutes?: number, initialSeconds?: number } }) {
+    const checkoutUrl = `/checkout?name=${encodeURIComponent(pkg.name)}&price=${encodeURIComponent(pkg.newPrice)}&followers=${encodeURIComponent(pkg.followers)}`;
     return (
         <Card
         className={cn(
@@ -199,8 +201,10 @@ function PackageCard({ pkg, countdownProps }: { pkg: typeof packages[0], countdo
                     placeholder="Digite seu @usuario"
                     className="bg-background text-center text-base"
                 />
-                <Button size="lg" className="w-full text-lg py-7 font-bold">
-                    Comprar Agora <ArrowRight className="ml-2"/>
+                <Button asChild size="lg" className="w-full text-lg py-7 font-bold">
+                    <Link href={checkoutUrl}>
+                        Comprar Agora <ArrowRight className="ml-2"/>
+                    </Link>
                 </Button>
                 <p className="text-xs text-muted-foreground text-center">Pagamento seguro via PIX ou Cartão de Crédito</p>
             </div>
