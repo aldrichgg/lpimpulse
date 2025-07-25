@@ -31,7 +31,7 @@ export default function FloatingWhatsAppButton() {
             variant="default"
             className="fixed bottom-6 right-6 h-16 w-16 rounded-full shadow-lg z-50 bg-green-500 hover:bg-green-600"
           >
-            <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" aria-label="Comprar pelo WhatsApp">
+            <a href="https://wa.me/5512981457975?text=Quero%20saber%20mais%20sobre%20a%20ImpulseGram" target="_blank" rel="noopener noreferrer" aria-label="Comprar pelo WhatsApp">
               <WhatsAppIcon className="h-8 w-8 text-white" />
             </a>
           </Button>

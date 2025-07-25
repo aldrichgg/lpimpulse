@@ -287,20 +287,20 @@ export default function CheckoutForm() {
                             <div className="space-y-4">
                                 <Label>Forma de Pagamento</Label>
                                 <RadioGroup
-  value={paymentMethod}
-  onValueChange={setPaymentMethod}
-  className="grid grid-cols-1 gap-4"
->
-  <div className="w-full">
-    <RadioGroupItem value="pix" id="pix" className="peer sr-only" />
-    <Label
-      htmlFor="pix"
-      className="flex flex-col items-center justify-between w-full rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary"
-    >
-      <PixIcon className="mb-3 h-6 w-6" /> PIX
-    </Label>
-  </div>
-</RadioGroup>
+                                    value={paymentMethod}
+                                    onValueChange={setPaymentMethod}
+                                    className="grid grid-cols-1 gap-4"
+                                >
+                                    <div className="w-full">
+                                        <RadioGroupItem value="pix" id="pix" className="peer sr-only" />
+                                        <Label
+                                            htmlFor="pix"
+                                            className="flex flex-col items-center justify-between w-full rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary"
+                                        >
+                                            <PixIcon className="mb-3 h-6 w-6" /> PIX
+                                        </Label>
+                                    </div>
+                                </RadioGroup>
 
                                 {/* {paymentMethod === "credit_card" && (
                                     <div className="grid gap-4 pt-4">

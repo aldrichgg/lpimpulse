@@ -27,7 +27,7 @@ export default function WhatsAppPurchaseSection() {
                         Caso você prefira, pode realizar a compra dos seguidores diretamente com nossa equipe pelo WhatsApp, só clicar no botão abaixo 👇
                     </p>
                     <Button asChild size="lg" className="bg-green-500 hover:bg-green-600 text-white font-bold text-lg py-7 mt-4">
-                        <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer">
+                        <a href="https://wa.me/5512981457975?text=Quero%20saber%20mais%20sobre%20a%20ImpulseGram" target="_blank" rel="noopener noreferrer">
                             <WhatsAppIcon className="mr-3 h-6 w-6" />
                             COMPRAR PELO WHATSAPP
                         </a>
