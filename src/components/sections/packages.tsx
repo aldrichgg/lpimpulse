@@ -158,11 +158,11 @@ function PackageCard({ pkg, countdownProps }: { pkg: typeof packages[0], countdo
         <CardContent className="p-6 text-center flex flex-col flex-grow">
             <h3 className="font-headline text-2xl text-foreground font-semibold">{pkg.name}</h3>
             <p className="font-bold text-primary text-3xl mt-4">{pkg.followers} Seguidores</p>
-            <p className="text-lg text-muted-foreground font-medium">+ {pkg.bonusFollowers} Seguidores Bônus</p>
-            <p className="text-lg text-muted-foreground font-medium mb-4">+{pkg.engagementBonus} Bônus Engajamento</p>
+            <p className="text-md text-muted-foreground font-medium">+ {pkg.bonusFollowers} Seguidores Bônus</p>
+            <p className="text-md text-muted-foreground font-medium mb-4">+{pkg.engagementBonus} Bônus Engajamento</p>
 
             <div className="my-4">
-                <span className="text-2xl text-muted-foreground/60 line-through">
+                <span className="text-xl text-muted-foreground/60 line-through">
                 R${pkg.oldPrice}
                 </span>
                 <p className="text-5xl font-bold text-foreground tracking-tight">
@@ -215,7 +215,7 @@ export default function PackagesSection() {
             <p className="font-semibold text-foreground md:text-lg">Escolha o pacote ideal para você 👇</p>
           </div>
         </div>
-        <div className="mx-auto grid max-w-sm items-stretch gap-8 sm:max-w-none sm:grid-cols-2 md:gap-12 lg:grid-cols-4 mt-12">
+        <div className="mx-auto grid max-w-sm items-start gap-8 sm:max-w-none sm:grid-cols-2 lg:grid-cols-4 mt-12">
             {packages.map((pkg) => (
                <PackageCard key={pkg.name} pkg={pkg} />
             ))}
@@ -231,7 +231,7 @@ export default function PackagesSection() {
         )}
 
         {showMore && (
-            <div className="mx-auto grid max-w-sm items-stretch gap-8 sm:max-w-none sm:grid-cols-1 md:gap-12 lg:grid-cols-3 mt-12">
+            <div className="mx-auto grid max-w-sm items-start gap-8 sm:max-w-none sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-12">
                 {extraPackages.map((pkg) => (
                     <PackageCard 
                         key={pkg.name} 
