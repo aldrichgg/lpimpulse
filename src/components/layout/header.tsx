@@ -11,7 +11,7 @@ export default function Header() {
       </Link>
       <nav className="ml-auto flex gap-4 sm:gap-6">
         <Button asChild>
-          <Link href="#packages">Comprar Seguidores Agora</Link>
+          <Link href="#packages">Garantir meu pacote</Link>
         </Button>
       </nav>
     </header>
