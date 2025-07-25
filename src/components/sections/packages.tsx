@@ -29,7 +29,7 @@ const packages = [
     engagementBonus: "20.000",
     oldPrice: "297,00",
     newPrice: "149,90",
-    highlight: "Mais Vendido",
+    highlight: null,
   },
   {
     name: "Pacote Avançado",
@@ -47,7 +47,7 @@ const packages = [
     engagementBonus: "50.000",
     oldPrice: "997,00",
     newPrice: "399,00",
-    highlight: "Maior Custo-Benefício",
+    highlight: null,
   },
 ];
 
@@ -68,7 +68,7 @@ const extraPackages = [
         engagementBonus: "100.000",
         oldPrice: "3.500,00",
         newPrice: "1.200,00",
-        highlight: "Últimos 3 pacotes nesse valor!",
+        highlight: null,
     },
     {
         name: "Pacote Elite",
