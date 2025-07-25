@@ -4,7 +4,7 @@ import { MoveRight } from "lucide-react";
 
 function VideoEmbed() {
   const embedHtml = `
-    <div style="padding:177.78% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1104332858?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="02- atendimento iniciado (semana 01)"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+    <div style="padding:177.78% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1104332858?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="02- atendimento iniciado (semana 01)"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
   `;
   return <div dangerouslySetInnerHTML={{ __html: embedHtml }} />;
 }
@@ -33,9 +33,9 @@ export default function HeroSection() {
               </Button>
             </div>
           </div>
-          <div className="relative group">
+          <div className="relative group mx-auto w-full max-w-[300px] sm:max-w-[350px]">
              <div className="absolute -inset-1 bg-gradient-to-r from-primary to-violet-400 rounded-lg blur-lg opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-             <div className="relative mx-auto aspect-video overflow-hidden rounded-xl">
+             <div className="relative mx-auto aspect-[9/16] overflow-hidden rounded-xl">
               <VideoEmbed />
              </div>
           </div>
