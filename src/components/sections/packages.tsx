@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -143,20 +144,22 @@ function PackageCard({ pkg, countdownProps }: { pkg: typeof packages[0], countdo
     return (
         <Card
         className={cn(
-          "relative flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 w-full border-2 overflow-hidden",
+          "relative flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 w-full border-2",
           pkg.highlight ? "border-primary shadow-lg ring-4 ring-primary/10" : "border-border"
         )}
       >
         {pkg.highlight && (
-          <Badge
-            variant="default"
-            className="absolute -top-1 -right-11 rotate-45 bg-primary text-primary-foreground text-center w-40 py-2 text-sm font-semibold shadow-lg"
-          >
-            {pkg.highlight}
-          </Badge>
+           <div className="absolute top-0 right-0 overflow-hidden w-48 h-48">
+             <Badge
+               variant="default"
+               className="absolute top-8 -right-5 rotate-45 bg-primary text-primary-foreground text-center w-40 py-2 text-sm font-semibold shadow-lg"
+             >
+               {pkg.highlight}
+             </Badge>
+           </div>
         )}
         <CardContent className="p-6 text-center flex flex-col flex-grow">
-            <h3 className="font-headline text-2xl text-foreground font-semibold">{pkg.name}</h3>
+            <h3 className="font-headline text-2xl text-foreground font-semibold mt-4">{pkg.name}</h3>
             <p className="font-bold text-primary text-3xl mt-4">{pkg.followers} Seguidores</p>
             <p className="text-md text-muted-foreground font-medium">+ {pkg.bonusFollowers} Seguidores Bônus</p>
             <p className="text-md text-muted-foreground font-medium mb-4">+{pkg.engagementBonus} Bônus Engajamento</p>
@@ -246,3 +249,5 @@ export default function PackagesSection() {
     </section>
   );
 }
+
+    
