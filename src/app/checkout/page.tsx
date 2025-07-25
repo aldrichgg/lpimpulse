@@ -2,15 +2,24 @@
 'use client';
 
 import { Suspense } from 'react';
-import Header from '@/components/layout/header';
-import Footer from '@/components/sections/footer';
+import Link from 'next/link';
 import CheckoutForm from '@/components/sections/checkout-form';
 import { Logo } from '@/components/logo';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
 
 function CheckoutPageContent() {
   return (
     <div className="flex flex-col min-h-[100dvh] bg-background">
-      <Header />
+      <header className="absolute top-0 left-0 right-0 z-10 p-4">
+        <div className="container px-4 md:px-6">
+            <Button asChild variant="outline" size="icon">
+                <Link href="/" aria-label="Voltar para o início">
+                    <ArrowLeft className="h-4 w-4" />
+                </Link>
+            </Button>
+        </div>
+      </header>
       <main className="flex-1 pt-24 pb-12">
         <div className="container px-4 md:px-6">
           <div className="mx-auto max-w-4xl">
@@ -27,7 +36,6 @@ function CheckoutPageContent() {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }
