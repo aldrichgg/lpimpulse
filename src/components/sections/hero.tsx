@@ -1,7 +1,23 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { MoveRight } from "lucide-react";
+
+function VideoEmbed() {
+  const embedHtml = `
+    <div style="padding:56.25% 0 0 0;position:relative;">
+      <iframe 
+        src="https://player.vimeo.com/video/973549755?badge=0&autoplay=1&loop=1&autopause=0&player_id=0&app_id=58479" 
+        frameborder="0" 
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" 
+        style="position:absolute;top:0;left:0;width:100%;height:100%;" 
+        title="02- atendimento iniciado (semana 01)">
+      </iframe>
+    </div>
+  `;
+  return <div dangerouslySetInnerHTML={{ __html: embedHtml }} />;
+}
+
 
 export default function HeroSection() {
   return (
@@ -28,14 +44,9 @@ export default function HeroSection() {
           </div>
           <div className="relative group">
              <div className="absolute -inset-1 bg-gradient-to-r from-primary to-violet-400 rounded-lg blur-lg opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-            <Image
-              src="https://placehold.co/1280x800.png"
-              alt="Hero"
-              width={1280}
-              height={800}
-              className="relative mx-auto aspect-[16/10] overflow-hidden rounded-xl object-cover sm:w-full"
-              data-ai-hint="social media growth abstract"
-            />
+             <div className="relative mx-auto aspect-video overflow-hidden rounded-xl">
+              <VideoEmbed />
+             </div>
           </div>
         </div>
       </div>
