@@ -4,6 +4,7 @@ import PackagesSection from '@/components/sections/packages';
 import TestimonialsSection from '@/components/sections/testimonials';
 import Footer from '@/components/sections/footer';
 import FloatingWhatsAppButton from '@/components/floating-whatsapp-button';
+import FaqSection from '@/components/sections/faq';
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
         <HeroSection />
         <PackagesSection />
         <TestimonialsSection />
+        <FaqSection />
       </main>
       <Footer />
       <FloatingWhatsAppButton />
