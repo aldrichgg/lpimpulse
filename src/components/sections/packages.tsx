@@ -12,75 +12,8 @@ import { Check, ArrowRight, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-
-const packages = [
-  {
-    name: "Pacote Iniciante",
-    followers: "1.000",
-    bonusFollowers: "500",
-    engagementBonus: "10.000",
-    oldPrice: "197,00",
-    newPrice: "97,00",
-    highlight: null,
-  },
-  {
-    name: "Pacote Amador",
-    followers: "2.500",
-    bonusFollowers: "1.000",
-    engagementBonus: "20.000",
-    oldPrice: "297,00",
-    newPrice: "149,90",
-    highlight: null,
-  },
-  {
-    name: "Pacote Avançado",
-    followers: "5.000",
-    bonusFollowers: "1.500",
-    engagementBonus: "30.000",
-    oldPrice: "497,00",
-    newPrice: "197,00",
-    highlight: null,
-  },
-  {
-    name: "Pacote Profissional",
-    followers: "10.000",
-    bonusFollowers: "2.000",
-    engagementBonus: "50.000",
-    oldPrice: "997,00",
-    newPrice: "399,00",
-    highlight: null,
-  },
-];
-
-const extraPackages = [
-    {
-        name: "Pacote VIP",
-        followers: "20.000",
-        bonusFollowers: "5.000",
-        engagementBonus: "100.000",
-        oldPrice: "1.997,00",
-        newPrice: "799,00",
-        highlight: null,
-    },
-    {
-        name: "Pacote Premium",
-        followers: "50.000",
-        bonusFollowers: "10.000",
-        engagementBonus: "100.000",
-        oldPrice: "3.500,00",
-        newPrice: "1.200,00",
-        highlight: null,
-    },
-    {
-        name: "Pacote Elite",
-        followers: "100.000",
-        bonusFollowers: "20.000",
-        engagementBonus: "150.000",
-        oldPrice: "4.500,00",
-        newPrice: "1.997,00",
-        highlight: null,
-    }
-]
+import { packages } from "@/lib/packages";
+import { extraPackages } from "@/lib/packages";
 
 const features = [
     { text: "100% Seguro e Confidencial", icon: Check },
@@ -151,7 +84,7 @@ function CountdownTimer({ initialHours = 2, initialMinutes = 11, initialSeconds 
 }
 
 function PackageCard({ pkg, countdownProps }: { pkg: typeof packages[0], countdownProps?: { initialHours?: number, initialMinutes?: number, initialSeconds?: number } }) {
-    const checkoutUrl = `/checkout?name=${encodeURIComponent(pkg.name)}&price=${encodeURIComponent(pkg.newPrice)}&followers=${encodeURIComponent(pkg.followers)}`;
+  const checkoutUrl = `/checkout?packageId=${pkg.packageId}`;
     return (
         <Card
         className={cn(
@@ -170,7 +103,7 @@ function PackageCard({ pkg, countdownProps }: { pkg: typeof packages[0], countdo
            </div>
         )}
         <CardContent className="p-6 text-center flex flex-col flex-grow">
-            <h3 className="font-headline text-2xl text-foreground font-semibold mt-4">{pkg.name}</h3>
+            <h3 className="font-headline text-2xl text-foreground font-semibold mt-4">{pkg.title}</h3>
             <p className="font-bold text-primary text-3xl mt-4">{pkg.followers} Seguidores</p>
             <p className="text-md text-muted-foreground font-medium">+ {pkg.bonusFollowers} Seguidores Bônus</p>
             <p className="text-md text-muted-foreground font-medium mb-4">+{pkg.engagementBonus} Bônus Engajamento</p>
@@ -233,7 +166,7 @@ export default function PackagesSection() {
         </div>
         <div className="mx-auto grid max-w-sm items-start gap-8 sm:max-w-none sm:grid-cols-2 lg:grid-cols-4 mt-12">
             {packages.map((pkg) => (
-               <PackageCard key={pkg.name} pkg={pkg} />
+               <PackageCard key={pkg.title} pkg={pkg} />
             ))}
         </div>
         
@@ -250,7 +183,7 @@ export default function PackagesSection() {
             <div className="mx-auto grid max-w-sm items-start gap-8 sm:max-w-none sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-12">
                 {extraPackages.map((pkg) => (
                     <PackageCard 
-                        key={pkg.name} 
+                        key={pkg.title} 
                         pkg={pkg}
                         countdownProps={{ initialHours: 1, initialMinutes: 31, initialSeconds: 35 }}
                     />
