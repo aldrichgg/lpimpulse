@@ -42,6 +42,26 @@ const testimonials = [
   {
     image: "https://i.imgur.com/WTuaW81.png",
     dataAiHint: "testimonial review"
+  },
+  {
+    image: "https://i.imgur.com/SZgDcte.png",
+    dataAiHint: "customer review"
+  },
+  {
+    image: "https://i.imgur.com/J1rnyvG.png",
+    dataAiHint: "social media feedback"
+  },
+  {
+    image: "https://i.imgur.com/I7KveBV.png",
+    dataAiHint: "client testimonial"
+  },
+  {
+    image: "https://i.imgur.com/lXiuQ5j.png",
+    dataAiHint: "user feedback"
+  },
+  {
+    image: "https://i.imgur.com/AWlDzwI.png",
+    dataAiHint: "positive review"
   }
 ];
 
