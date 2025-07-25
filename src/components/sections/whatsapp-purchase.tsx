@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
 
 function WhatsAppIcon(props: React.SVGProps<SVGSVGElement>) {
     return (
@@ -17,7 +16,7 @@ function WhatsAppIcon(props: React.SVGProps<SVGSVGElement>) {
 
 export default function WhatsAppPurchaseSection() {
     return (
-        <section id="whatsapp-purchase" className="w-full bg-background">
+        <section id="whatsapp-purchase" className="w-full bg-background pt-0">
             <div className="container px-4 md:px-6">
                 <div className="flex flex-col items-center justify-center space-y-4 text-center py-12">
                     <WhatsAppIcon className="h-12 w-12 text-green-500 mb-4" />
