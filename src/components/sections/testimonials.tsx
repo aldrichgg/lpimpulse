@@ -12,29 +12,37 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const testimonials = [
   {
-    image: "https://placehold.co/300x550.png",
+    image: "https://i.imgur.com/ChSZOQQ.png",
     dataAiHint: "testimonial screenshot"
   },
   {
-    image: "https://placehold.co/300x550.png",
+    image: "https://i.imgur.com/4K5120o.png",
     dataAiHint: "testimonial review"
   },
   {
-    image: "https://placehold.co/300x550.png",
+    image: "https://i.imgur.com/3z6Jf6S.png",
     dataAiHint: "customer feedback"
   },
   {
-    image: "https://placehold.co/300x550.png",
+    image: "https://i.imgur.com/ca63ejk.png",
     dataAiHint: "testimonial social media"
   },
-    {
-    image: "https://placehold.co/300x550.png",
+  {
+    image: "https://i.imgur.com/WHr6G2G.png",
     dataAiHint: "review social media"
   },
   {
-    image: "https://placehold.co/300x550.png",
+    image: "https://i.imgur.com/r4lZd7T.png",
     dataAiHint: "customer testimonial"
   },
+  {
+    image: "https://i.imgur.com/Zmn6vIN.png",
+    dataAiHint: "testimonial screenshot"
+  },
+  {
+    image: "https://i.imgur.com/WTuaW81.png",
+    dataAiHint: "testimonial review"
+  }
 ];
 
 export default function TestimonialsSection() {
