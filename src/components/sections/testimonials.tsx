@@ -9,36 +9,31 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const testimonials = [
   {
-    name: "Julia S.",
-    handle: "@jujufit",
-    quote: "O engajamento no meu perfil de fitness explodiu! A ImpulseGram entregou seguidores reais e ativos. Superou minhas expectativas!",
-    image: "https://placehold.co/100x100.png",
-    dataAiHint: "woman fitness"
+    image: "https://placehold.co/300x550.png",
+    dataAiHint: "testimonial screenshot"
   },
   {
-    name: "Marcos V.",
-    handle: "@marcoseats",
-    quote: "Serviço confiável e suporte incrível. Consegui fechar duas parcerias grandes depois de usar o pacote Influencer.",
-    image: "https://placehold.co/100x100.png",
-    dataAiHint: "man cooking"
+    image: "https://placehold.co/300x550.png",
+    dataAiHint: "testimonial review"
   },
   {
-    name: "Livia M.",
-    handle: "@liviatrips",
-    quote: "Como influenciadora de viagens, ter uma base sólida de seguidores é essencial. A ImpulseGram foi o empurrão que eu precisava. 100% satisfeita!",
-    image: "https://placehold.co/100x100.png",
-    dataAiHint: "woman travel"
+    image: "https://placehold.co/300x550.png",
+    dataAiHint: "customer feedback"
   },
   {
-    name: "Carlos P.",
-    handle: "@carlosgamer",
-    quote: "Meu canal de games no Instagram decolou. A entrega foi super rápida e o suporte me ajudou com todas as dúvidas. Recomendo!",
-    image: "https://placehold.co/100x100.png",
-    dataAiHint: "man gaming"
+    image: "https://placehold.co/300x550.png",
+    dataAiHint: "testimonial social media"
+  },
+    {
+    image: "https://placehold.co/300x550.png",
+    dataAiHint: "review social media"
+  },
+  {
+    image: "https://placehold.co/300x550.png",
+    dataAiHint: "customer testimonial"
   },
 ];
 
@@ -62,29 +57,22 @@ export default function TestimonialsSection() {
               align: "start",
               loop: true,
             }}
-            className="w-full max-w-4xl mx-auto"
+            className="w-full max-w-6xl mx-auto"
           >
             <CarouselContent>
               {testimonials.map((testimonial, index) => (
-                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/2">
+                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/4">
                   <div className="p-1">
-                    <Card className="h-full">
-                      <CardContent className="p-6 flex flex-col justify-between h-full">
-                        <blockquote className="text-lg font-semibold leading-snug">
-                          “{testimonial.quote}”
-                        </blockquote>
-                        <div className="flex items-center gap-4 mt-6">
-                          <Avatar>
-                            <AvatarImage src={testimonial.image} alt={testimonial.name} data-ai-hint={testimonial.dataAiHint} />
-                            <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
-                          </Avatar>
-                          <div>
-                            <p className="font-semibold">{testimonial.name}</p>
-                            <p className="text-sm text-muted-foreground">
-                              {testimonial.handle}
-                            </p>
-                          </div>
-                        </div>
+                    <Card>
+                      <CardContent className="p-2">
+                         <Image 
+                            src={testimonial.image}
+                            alt={`Depoimento ${index + 1}`}
+                            width={300}
+                            height={550}
+                            className="rounded-md object-cover w-full h-full"
+                            data-ai-hint={testimonial.dataAiHint}
+                         />
                       </CardContent>
                     </Card>
                   </div>
