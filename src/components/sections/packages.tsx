@@ -88,16 +88,22 @@ const features = [
 ];
 
 function CountdownTimer({ initialHours = 2, initialMinutes = 11, initialSeconds = 11 }) {
-    const [timeLeft, setTimeLeft] = useState({
-      hours: initialHours,
-      minutes: initialMinutes,
-      seconds: initialSeconds,
-    });
+    const [timeLeft, setTimeLeft] = useState<{ hours: number, minutes: number, seconds: number } | null>(null);
   
     useEffect(() => {
+        setTimeLeft({
+            hours: initialHours,
+            minutes: initialMinutes,
+            seconds: initialSeconds,
+        });
+    }, [initialHours, initialMinutes, initialSeconds]);
+
+    useEffect(() => {
+        if (timeLeft === null) return;
+
         const timer = setTimeout(() => {
             if (timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0) {
-                // Timer finished - you could reset it or show a message
+                // Timer finished
             } else {
                 let seconds = timeLeft.seconds - 1;
                 let minutes = timeLeft.minutes;
@@ -112,7 +118,6 @@ function CountdownTimer({ initialHours = 2, initialMinutes = 11, initialSeconds 
                   hours -= 1;
                 }
                 
-                // Ensure hours don't go below zero
                 if (hours < 0) {
                     hours = 0;
                 }
@@ -126,6 +131,10 @@ function CountdownTimer({ initialHours = 2, initialMinutes = 11, initialSeconds 
   
     const formatTime = (time: number) => time.toString().padStart(2, '0');
   
+    if (timeLeft === null) {
+        return null;
+    }
+
     return (
         <div className="flex items-center justify-center gap-2 my-4">
             <span className="text-sm font-semibold text-muted-foreground">Somente Hoje</span>
@@ -249,5 +258,3 @@ export default function PackagesSection() {
     </section>
   );
 }
-
-    
