@@ -1,8 +1,17 @@
+"use client"
+
 import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { Facebook, Instagram, Twitter } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function Footer() {
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+  }, []);
+
   return (
     <footer className="bg-background border-t">
       <div className="container mx-auto py-12 px-4 md:px-6">
@@ -61,7 +70,7 @@ export default function Footer() {
         </div>
         <div className="mt-8 border-t pt-8 text-center">
             <p className="text-sm text-muted-foreground">
-                &copy; {new Date().getFullYear()} ImpulseGram Marketing. Todos os direitos reservados.
+                &copy; {currentYear} ImpulseGram Marketing. Todos os direitos reservados.
             </p>
         </div>
       </div>
