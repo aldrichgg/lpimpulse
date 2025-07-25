@@ -2,7 +2,8 @@
 "use client";
 
 import { useSearchParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,7 +11,17 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Checkbox } from '../ui/checkbox';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { CreditCard, Rocket, Pilcrow, Package } from 'lucide-react';
+import { CreditCard, Rocket, Package, Copy } from 'lucide-react';
+import {
+    AlertDialog,
+    AlertDialogContent,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogAction,
+  } from "@/components/ui/alert-dialog"
+import { useToast } from "@/hooks/use-toast"
 
 
 function PixIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -23,12 +34,92 @@ function PixIcon(props: React.SVGProps<SVGSVGElement>) {
     )
 }
 
+function PixModal({ isOpen, onClose, pixCode, timeLeft, onCopy }: { isOpen: boolean, onClose: () => void, pixCode: string, timeLeft: string, onCopy: () => void }) {
+    if (!isOpen) return null;
+
+    return (
+        <AlertDialog open={isOpen} onOpenChange={onClose}>
+            <AlertDialogContent className="max-w-md">
+                <AlertDialogHeader>
+                    <AlertDialogTitle className="text-center text-2xl font-bold">Pague com PIX</AlertDialogTitle>
+                    <AlertDialogDescription className="text-center">
+                        Aponte a câmera do seu celular para o QR Code ou copie o código abaixo.
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <div className="flex flex-col items-center gap-4 py-4">
+                    <Image
+                        src="https://placehold.co/250x250.png"
+                        data-ai-hint="QR code"
+                        alt="QR Code para pagamento PIX"
+                        width={250}
+                        height={250}
+                    />
+                     <div className="text-center text-lg font-bold text-destructive">
+                        Tempo restante: {timeLeft}
+                    </div>
+                    <div className="w-full space-y-2">
+                        <Label htmlFor="pix-code">PIX Copia e Cola</Label>
+                        <div className="flex items-center gap-2">
+                            <Input id="pix-code" readOnly value={pixCode} className="text-xs"/>
+                            <Button variant="outline" size="icon" onClick={onCopy}>
+                                <Copy className="h-4 w-4" />
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+                <AlertDialogFooter>
+                    <AlertDialogAction onClick={onClose} className="w-full">Fechar</AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
+    );
+}
+
 
 export default function CheckoutForm() {
     const searchParams = useSearchParams();
+    const { toast } = useToast();
     const [selectedPackage, setSelectedPackage] = useState({ name: '', price: '', followers: '' });
     const [includeUpsell, setIncludeUpsell] = useState(false);
     const [totalPrice, setTotalPrice] = useState(0);
+    const [paymentMethod, setPaymentMethod] = useState('pix');
+    const [isPixModalOpen, setIsPixModalOpen] = useState(false);
+    
+    const pixCode = "00020126360014br.gov.bcb.pix0114+5511999999999520400005303986540510.005802BR5913NOME DO LOJISTA6009SAO PAULO62070503***6304E2A4";
+    
+    const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
+    const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+    const formatTime = (seconds: number) => {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    };
+
+    const startTimer = () => {
+        if (timerRef.current) clearInterval(timerRef.current);
+        setTimeLeft(300);
+        timerRef.current = setInterval(() => {
+            setTimeLeft(prevTime => {
+                if (prevTime <= 1) {
+                    if(timerRef.current) clearInterval(timerRef.current);
+                    // aqui você pode fechar o modal ou mostrar uma mensagem de tempo esgotado
+                    setIsPixModalOpen(false);
+                    return 0;
+                }
+                return prevTime - 1;
+            });
+        }, 1000);
+    };
+
+    const handleCopyToClipboard = () => {
+        navigator.clipboard.writeText(pixCode);
+        toast({
+            title: "Copiado!",
+            description: "Código PIX copiado para a área de transferência.",
+        })
+    };
+
 
     useEffect(() => {
         const name = searchParams.get('name') || 'Pacote não selecionado';
@@ -36,10 +127,6 @@ export default function CheckoutForm() {
         const followers = searchParams.get('followers') || '';
 
         setSelectedPackage({ name, price, followers });
-
-        const mainPrice = parseFloat(price.replace(',', '.'));
-        setTotalPrice(mainPrice);
-
     }, [searchParams]);
 
     useEffect(() => {
@@ -58,8 +145,33 @@ export default function CheckoutForm() {
     }, [includeUpsell, selectedPackage.price])
 
 
+    useEffect(() => {
+        return () => {
+            if (timerRef.current) {
+                clearInterval(timerRef.current);
+            }
+        };
+    }, []);
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (paymentMethod === 'pix') {
+            startTimer();
+            setIsPixModalOpen(true);
+        } else {
+            // Lógica para submissão de cartão de crédito
+            console.log("Processando pagamento com cartão de crédito...");
+            toast({
+                title: "Processando...",
+                description: "Seu pagamento com cartão de crédito está sendo processado.",
+              })
+        }
+    }
+
+
     return (
-        <div className="grid md:grid-cols-2 gap-8">
+        <>
+        <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-8">
             <div className="space-y-6">
                  <Card>
                     <CardHeader>
@@ -120,7 +232,7 @@ export default function CheckoutForm() {
 
                         <div className="space-y-4">
                              <Label>Forma de Pagamento</Label>
-                             <RadioGroup defaultValue="pix" className="grid grid-cols-2 gap-4">
+                             <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod} className="grid grid-cols-2 gap-4">
                                 <div>
                                     <RadioGroupItem value="pix" id="pix" className="peer sr-only" />
                                     <Label
@@ -144,6 +256,29 @@ export default function CheckoutForm() {
                             </RadioGroup>
                         </div>
 
+                        {paymentMethod === 'card' && (
+                            <div className="grid gap-4 pt-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="card-number">Número do Cartão</Label>
+                                    <Input id="card-number" placeholder="0000 0000 0000 0000" required />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="card-name">Nome no Cartão</Label>
+                                    <Input id="card-name" placeholder="Nome como no cartão" required />
+                                </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="expiry-date">Validade (MM/AA)</Label>
+                                        <Input id="expiry-date" placeholder="MM/AA" required />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="cvv">CVV</Label>
+                                        <Input id="cvv" placeholder="123" required />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
                         <Button type="submit" className="w-full font-bold text-lg py-7 mt-4" size="lg">
                             Finalizar Compra
                         </Button>
@@ -151,6 +286,19 @@ export default function CheckoutForm() {
                     </CardContent>
                 </Card>
             </div>
-        </div>
+        </form>
+         <PixModal 
+            isOpen={isPixModalOpen}
+            onClose={() => {
+                setIsPixModalOpen(false)
+                if (timerRef.current) clearInterval(timerRef.current);
+            }}
+            pixCode={pixCode}
+            timeLeft={formatTime(timeLeft)}
+            onCopy={handleCopyToClipboard}
+        />
+        </>
     )
 }
+
+    
