@@ -143,14 +143,14 @@ function PackageCard({ pkg, countdownProps }: { pkg: typeof packages[0], countdo
     return (
         <Card
         className={cn(
-          "relative flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 w-full border-2",
+          "relative flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 w-full border-2 overflow-hidden",
           pkg.highlight ? "border-primary shadow-lg ring-4 ring-primary/10" : "border-border"
         )}
       >
         {pkg.highlight && (
           <Badge
             variant="default"
-            className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 text-sm font-semibold shadow-lg"
+            className="absolute -top-1 -right-11 rotate-45 bg-primary text-primary-foreground text-center w-40 py-2 text-sm font-semibold shadow-lg"
           >
             {pkg.highlight}
           </Badge>
