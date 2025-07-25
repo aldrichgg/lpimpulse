@@ -6,7 +6,7 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Check, ArrowRight } from "lucide-react";
+import { Check, ArrowRight, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -50,40 +50,75 @@ const packages = [
   },
 ];
 
+const extraPackages = [
+    {
+        name: "Pacote VIP",
+        followers: "20.000",
+        bonusFollowers: "5.000",
+        engagementBonus: "100.000",
+        oldPrice: "1.997,00",
+        newPrice: "799,00",
+        highlight: null,
+    },
+    {
+        name: "Pacote Premium",
+        followers: "50.000",
+        bonusFollowers: "10.000",
+        engagementBonus: "100.000",
+        oldPrice: "3.500,00",
+        newPrice: "1.200,00",
+        highlight: "Últimos 3 pacotes nesse valor!",
+    },
+    {
+        name: "Pacote Elite",
+        followers: "100.000",
+        bonusFollowers: "20.000",
+        engagementBonus: "150.000",
+        oldPrice: "4.500,00",
+        newPrice: "1.997,00",
+        highlight: null,
+    }
+]
+
 const features = [
     { text: "100% Seguro e Confidencial", icon: Check },
     { text: "Não precisamos da sua senha", icon: Check },
     { text: "Seguidores Reais e Brasileiros", icon: Check },
 ];
 
-function CountdownTimer() {
+function CountdownTimer({ initialHours = 2, initialMinutes = 11, initialSeconds = 11 }) {
     const [timeLeft, setTimeLeft] = useState({
-      hours: 2,
-      minutes: 11,
-      seconds: 11,
+      hours: initialHours,
+      minutes: initialMinutes,
+      seconds: initialSeconds,
     });
   
     useEffect(() => {
-      const timer = setTimeout(() => {
-        if (timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0) {
-            // Timer finished
-        } else {
-            let seconds = timeLeft.seconds - 1;
-            let minutes = timeLeft.minutes;
-            let hours = timeLeft.hours;
-    
-            if (seconds < 0) {
-              seconds = 59;
-              minutes -= 1;
+        const timer = setTimeout(() => {
+            if (timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0) {
+                // Timer finished - you could reset it or show a message
+            } else {
+                let seconds = timeLeft.seconds - 1;
+                let minutes = timeLeft.minutes;
+                let hours = timeLeft.hours;
+        
+                if (seconds < 0) {
+                  seconds = 59;
+                  minutes -= 1;
+                }
+                if (minutes < 0) {
+                  minutes = 59;
+                  hours -= 1;
+                }
+                
+                // Ensure hours don't go below zero
+                if (hours < 0) {
+                    hours = 0;
+                }
+
+                setTimeLeft({ hours, minutes, seconds });
             }
-            if (minutes < 0) {
-              minutes = 59;
-              hours -= 1;
-            }
-    
-            setTimeLeft({ hours, minutes, seconds });
-        }
-      }, 1000);
+          }, 1000);
   
       return () => clearTimeout(timer);
     }, [timeLeft]);
@@ -104,7 +139,7 @@ function CountdownTimer() {
     );
 }
 
-function PackageCard({ pkg }: { pkg: typeof packages[0] }) {
+function PackageCard({ pkg, countdownProps }: { pkg: typeof packages[0], countdownProps?: { initialHours?: number, initialMinutes?: number, initialSeconds?: number } }) {
     return (
         <Card
         className={cn(
@@ -135,7 +170,7 @@ function PackageCard({ pkg }: { pkg: typeof packages[0] }) {
                 </p>
             </div>
 
-            <CountdownTimer />
+            <CountdownTimer {...countdownProps} />
 
             <ul className="space-y-2 text-sm my-6 text-left">
                 {features.map((feature) => (
@@ -164,6 +199,8 @@ function PackageCard({ pkg }: { pkg: typeof packages[0] }) {
 }
 
 export default function PackagesSection() {
+  const [showMore, setShowMore] = useState(false);
+
   return (
     <section id="packages" className="w-full bg-background">
       <div className="container px-4 md:px-6">
@@ -183,6 +220,28 @@ export default function PackagesSection() {
                <PackageCard key={pkg.name} pkg={pkg} />
             ))}
         </div>
+        
+        {!showMore && (
+            <div className="text-center mt-12">
+                <Button variant="outline" size="lg" onClick={() => setShowMore(true)}>
+                    Ver mais pacotes
+                    <ChevronDown className="ml-2 h-5 w-5" />
+                </Button>
+            </div>
+        )}
+
+        {showMore && (
+            <div className="mx-auto grid max-w-sm items-stretch gap-8 sm:max-w-none sm:grid-cols-1 md:gap-12 lg:grid-cols-3 mt-12">
+                {extraPackages.map((pkg) => (
+                    <PackageCard 
+                        key={pkg.name} 
+                        pkg={pkg}
+                        countdownProps={{ initialHours: 1, initialMinutes: 31, initialSeconds: 35 }}
+                    />
+                ))}
+            </div>
+        )}
+
       </div>
     </section>
   );
