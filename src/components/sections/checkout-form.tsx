@@ -193,7 +193,7 @@ export default function CheckoutForm() {
                 const result = await response.json();
                 setPixCode(result.point_of_interaction.transaction_data.qr_code);
                 setQrCodeUrl(result.point_of_interaction.transaction_data.qr_code_base64);
-
+                gtag_report_conversion();
                 setPixModalOpen(true);
             } else {
                 alert("Pedido enviado! (Cartão de crédito)");
@@ -345,3 +345,25 @@ export default function CheckoutForm() {
         </>
     );
 }
+
+declare global {
+    interface Window {
+      gtag?: (...args: any[]) => void;
+    }
+  }
+  
+  function gtag_report_conversion(url?: string) {
+    const callback = () => {
+      if (typeof url !== 'undefined') {
+        window.location.href = url;
+      }
+    };
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'conversion', {
+        send_to: 'AW-17382362278/KReeCIbyx_oaEKaZx-BA',
+        transaction_id: '',
+        event_callback: callback,
+      });
+    }
+  }
+  
